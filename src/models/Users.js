@@ -5,9 +5,8 @@ const userSchema = new schema({
     name: {
         type: String,
         required: true,
-        // minlength: 5,
-        // maxlength: 50,
-        
+        minlength: 5,
+        maxlength: 50,
     },
     email: {
         type: String,
@@ -23,12 +22,9 @@ const userSchema = new schema({
         minlength: 10,
         maxlength: 50,
     },
-    birthdate: {
+    birthdate:{
         type: Date,
         required: true,
-        min: new Date(1900, 0, 1),
-        max: new Date(new Date().getFullYear() - 18, 11, 31),
-        // validate: [validateBirthdate, 'Invalid birthdate']
     }
 })
 //create collection name users

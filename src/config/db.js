@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 require('dotenv').config()
+const { DB_HOST, DB_PORT, DB_DATABASE } = process.env;
+
 
 /**
  * main fun to conect with database
  */
 async function main() 
 {
-    const URL = `${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+    const URL = `${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
     await mongoose.connect(URL).then(()=>{
         console.log('Connected to MongoDB');
     
