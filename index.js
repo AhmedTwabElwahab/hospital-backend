@@ -4,9 +4,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const usersRouter = require('./src/Router/users');
 const auth = require('./src/Router/auth');
-
 app = express();
 const port = 3000;
+require('./src/helper/functions')
 require('./src/config/db');
 
 

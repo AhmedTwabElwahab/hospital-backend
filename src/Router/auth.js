@@ -3,7 +3,8 @@ const router = express.Router();
 const {Login} = require('../controllers/auth/login');
 const {Register} = require('../controllers/auth/register');
 const {Validate} = require('../middleware/validate');
-const registerRequest = require('../Request/authRequest')
+const registerRequest = require('../Request/authRequest');
+
 /**
  * Login 
  */
