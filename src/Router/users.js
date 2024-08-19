@@ -1,33 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const {check} = require("express-validator");
+const {auth} = require('../middleware/authMiddleware');
 const {index,create,show,update,destroy} = require('../controllers/users');
-
 
 
 /**
  * Get all users
  */
-router.get('/',index);
+router.get('/',auth,index);
 
 /**
  * get info for user
  */
-router.get('/:user', show);
+router.get('/:user',auth, show);
 
 /**
  * create User
  */
-router.post('/create', create);
+router.post('/create',auth, create);
 
 /**
  * update User
  */
-router.put('/:user', update);
+router.put('/:user',auth, update);
 
 /**
  * delete User
  */
-router.delete('/:user',destroy);
+router.delete('/:user',auth,destroy);
 
 module.exports = router;

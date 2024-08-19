@@ -9,6 +9,7 @@ const { DB_HOST, DB_PORT, DB_DATABASE } = process.env;
 async function main() 
 {
     const URL = `${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
+    // === CONNECT DATABASE ===   
     await mongoose.connect(URL).then(()=>{
         console.log('Connected to MongoDB');
     

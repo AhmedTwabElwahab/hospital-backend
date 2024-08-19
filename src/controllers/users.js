@@ -56,7 +56,8 @@ async function create (req, res)
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
-            birthdate: new Date(req.body.birthdate)
+            birthdate: new Date(req.body.birthdate),
+            password:req.body.password
         });
         
         newUser.save()
@@ -125,5 +126,7 @@ async function destroy (req, res)
         res.status(500).json({massage: error});
     }
 }
+
+
 
 module.exports = {index, show, create, update, destroy};
