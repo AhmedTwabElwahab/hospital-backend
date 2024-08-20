@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {auth} = require('../middleware/authMiddleware');
-const {index,create,show,update,destroy} = require('../controllers/users');
+const {index,create,show,update,destroy} = require('../controllers/userController');
 
 
 /**

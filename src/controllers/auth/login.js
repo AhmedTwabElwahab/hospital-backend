@@ -24,7 +24,7 @@ async function Login(req, res) {
             `${req.body.password}`,
             user.password
         );
-        
+
         // if not valid, return unathorized response
         if (!isPasswordValid)
             return error(res,401,"failed","Invalid email or password.");
