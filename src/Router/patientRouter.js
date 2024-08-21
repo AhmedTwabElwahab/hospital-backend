@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {auth} = require('../middleware/authMiddleware');
 const {index,create,show,update,destroy} = require('../controllers/patientController');
-
+const [patientRequest,patientUpdateRequest] = require("../Request/pationtRequest")
+const { Validate } = require('../middleware/validate');
 
 /**
  * Get all Patients
@@ -17,12 +18,12 @@ router.get('/:Patient',auth, show);
 /**
  * create Patient
  */
-router.post('/create',auth, create);
+router.post('/create', patientRequest, auth, Validate, create);
 
 /**
  * update Patient
  */
-router.put('/:Patient',auth, update);
+router.put('/:Patient', patientUpdateRequest, auth, Validate, update);
 
 /**
  * delete Patient

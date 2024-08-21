@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
+const MedicalExamination = require('./MedicalExamination');
 
 
 const doctorSchema = new schema({
@@ -17,7 +18,8 @@ const doctorSchema = new schema({
     address: String,
     phone: String,
     password: String,
-    whatsapp: String
+    whatsapp: String,
+    patient : [{ type: mongoose.Schema.Types.ObjectId, ref: 'patients' }]
 });
 
 doctorSchema.pre("save", function (next)
@@ -35,6 +37,11 @@ doctorSchema.pre("save", function (next)
         });
     });
 });
+
+doctorSchema.methods.hasMany = async function ()
+{
+    return await MedicalExamination.find({doctor_id: this._id});
+};
 
 const doctor = mongoose.model('doctors',doctorSchema);
 module.exports = doctor;

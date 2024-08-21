@@ -33,9 +33,10 @@ async function show (req, res)
     const DoctorId = req.params.doctor;
     try 
     {
-        const DoctorData = await Doctor.findById(DoctorId).catch(error=>{
-           throw error;
-        });
+        const DoctorData = await Doctor.findById(DoctorId);
+        if (!DoctorData){
+            throw "Not Found";
+        }
         res.json(DoctorData);
     } catch (error)
     {

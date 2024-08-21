@@ -6,6 +6,7 @@ const usersRouter = require('./src/Router/usersRouter');
 const auth = require('./src/Router/authRouter');
 const patient = require('./src/Router/patientRouter');
 const doctorRouter = require('./src/Router/doctorRouter');
+const MedicalExaminationRouter = require('./src/Router/medicalExaminationRouter');
 
 app = express();
 const port = 3000;
@@ -24,7 +25,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use('/users',usersRouter);
 app.use('/auth',auth);
-app.use('/patient',patient);
+app.use('/patients',patient);
 app.use('/doctors',doctorRouter);
+app.use('/examinations',MedicalExaminationRouter);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

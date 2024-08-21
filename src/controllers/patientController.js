@@ -88,28 +88,28 @@ async function update (req, res)
     const id = req.params.Patient;    
     try 
     {
-        const Patient = await Patient.findById(id);
-        if (!Patient){
+        const updatePatient = await Patient.findById(id);
+        if (!updatePatient){
             throw "Not Found";
         }else
         {
             //update Patient
-            Patient.name        = req.body.name,
-            Patient.number_id   = req.body.number_id,
-            Patient.email       = req.body.email,
-            Patient.address     = req.body.address,
-            Patient.phone       = req.body.phone,
-            Patient.password    = req.body.password,
-            Patient.whatsapp    = req.body.whatsapp,
-            Patient.weight      = req.body.weight,
-            Patient.height      = req.body.height,
-            Patient.bloodType   = req.body.bloodType, // فصيلة الدم
-            Patient.allergies   = req.body.allergies, //الحساسية
-            Patient.birthdate   = new Date(req.body.birthdate),
+            updatePatient.name        = req.body.name,
+            updatePatient.number_id   = req.body.number_id,
+            updatePatient.email       = req.body.email,
+            updatePatient.address     = req.body.address,
+            updatePatient.phone       = req.body.phone,
+            updatePatient.password    = req.body.password,
+            updatePatient.whatsapp    = req.body.whatsapp,
+            updatePatient.weight      = req.body.weight,
+            updatePatient.height      = req.body.height,
+            updatePatient.bloodType   = req.body.bloodType, // فصيلة الدم
+            updatePatient.allergies   = req.body.allergies, //الحساسية
+            updatePatient.birthdate   = new Date(req.body.birthdate),
             
             // save Patient to database
-            await Patient.save();
-            res.json(Patient);
+            await updatePatient.save();
+            res.json(updatePatient);
         }
     } catch (error) {
         global.error(res,500,error,"internal error");
@@ -127,8 +127,8 @@ async function destroy (req, res)
     try 
     {
         // check if Patient exists
-        const Patient = await Patient.findByIdAndDelete(PatientId);
-        if (!Patient)
+        let patient = await Patient.findByIdAndDelete(PatientId);
+        if (!patient)
         {
             throw "Not Found";
         }else

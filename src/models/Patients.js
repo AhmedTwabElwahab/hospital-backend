@@ -15,7 +15,7 @@ const patientSchema = new schema({
     bloodType: String, // فصيلة الدم
     allergies: String, //الحساسية
     birthdate: Date,
-    /**doctor: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'}*/
+    doctors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'doctors' }],
 })
 
 const Patient = mongoose.model('patients',patientSchema);
