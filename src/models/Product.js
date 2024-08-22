@@ -9,6 +9,7 @@ const ProductSchema = new schema({
     disc: String,
     disc_ar: String,
     image:String,
+    barcode:String,
     type: {
         type: String,
         enum: ['product','service'],

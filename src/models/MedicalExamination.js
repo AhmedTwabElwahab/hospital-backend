@@ -8,6 +8,7 @@ const MedicalExaminationSchema = new schema({
     diagnosis: String,
     notes: String,
     status: {type: String, enum: ['active', 'inactive']},
+    medicines:[{type: mongoose.Schema.Types.ObjectId, ref: 'patient_medicines'}],
     createdAt: {type: Date, default: Date.now}
 });
 

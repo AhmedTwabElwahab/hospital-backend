@@ -8,9 +8,9 @@ const medicineSchema = new schema({
     dosage: String, // الجرعة
     frequency: String, // التكرار
     side_effects: String, //الاعراض الجانبية 
-    pation_id: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
-    doctor_id: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'},
-    examination_id:{type: mongoose.Schema.Types.ObjectId, ref: 'doctors'}, // فحص او كشف
+    // pation: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
+    // doctor: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'},
+    examination:{type: mongoose.Schema.Types.ObjectId, ref: 'MedicalExamination'}, // فحص او كشف
 })
 
 const medicine = mongoose.model('patient_medicines',medicineSchema);

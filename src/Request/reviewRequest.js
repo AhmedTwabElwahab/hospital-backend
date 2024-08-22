@@ -1,20 +1,20 @@
 const { body } = require("express-validator");
 const Doctor = require('../models/Doctor')
-const Patient = require('../models/Patients')
+const Patient = require('../models/Patients');
+const Review = require("../models/Review");
 
 const Request = 
 [
     [
-      body("notes").isString(),
-      body("diagnosis").isString(),
-      body("status").isString().trim(),
-      body("doctor").custom(async (doctor_id)=>{
+      body("disc").isString().notEmpty(),
+      body("rating").isNumeric().notEmpty(),
+      body("doctor").notEmpty().custom(async (doctor_id)=>{
         const doctor = await Doctor.findOne({ _id: doctor_id });
         if (!doctor) {
           throw new Error("Doctor is not exists");
         }
       }),
-      body("patient").custom(async (patient_id)=>{
+      body("patient").notEmpty().custom(async (patient_id)=>{
         const patient = await Patient.findOne({ _id: patient_id });
         if (!patient) {
           throw new Error("patient is not exists");

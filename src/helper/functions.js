@@ -1,4 +1,5 @@
 const Doctor = require("../models/Doctor");
+const MedicalExamination = require("../models/MedicalExamination");
 const Patient = require("../models/Patients");
 
 /**
@@ -77,4 +78,25 @@ const addDoctor = async function(doctor_id,patient_id)
         patient.save();
     }
 };
-module.exports = {addPatient,addDoctor};
+
+/**
+ * add medicine in MedicalExamination table.
+ * 
+ * @param {String} medicine 
+ * @param {String} Examination 
+ */
+const addMedicine = async function(medicine_id,Examination_id)
+{
+    const Examination = await MedicalExamination.findById(Examination_id);
+    if (!Examination){
+        throw "Not Found";
+    };
+    const Medicines = Examination.medicines;
+    if(!Medicines.includes(medicine_id))
+    {
+        Examination.medicines.push(medicine_id);
+        Examination.save();
+    }
+};
+
+module.exports = {addPatient,addDoctor,addMedicine};

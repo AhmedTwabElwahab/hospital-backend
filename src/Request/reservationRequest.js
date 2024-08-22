@@ -14,7 +14,7 @@ const Request =
           throw new Error("Doctor is not exists");
         }
       }),
-      body("patient").custom(async (patient_id)=>{
+      body("patient").notEmpty().custom(async (patient_id)=>{
         const patient = await Patient.findOne({ _id: patient_id });
         if (!patient) {
           throw new Error("patient is not exists");

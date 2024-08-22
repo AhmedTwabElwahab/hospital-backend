@@ -11,7 +11,7 @@ async function index (req, res)
 {
     try 
     {
-        let medicalExamination = await MedicalExamination.find({}).populate(["doctor",'pation']);
+        let medicalExamination = await MedicalExamination.find({}).populate(["doctor",'patient','medicines']);
         if(!medicalExamination)
         {
             throw 'No medicalExamination found';
@@ -35,9 +35,11 @@ async function show (req, res)
     try 
     {
         const MedicalExaminationData = await MedicalExamination
-        .findById(MedicalExaminationId).catch(error=>{
-           throw error;
-        });
+        .findById(MedicalExaminationId).populate(["doctor",'patient','medicines']);
+        if(!MedicalExaminationData)
+        {
+            throw 'No medicalExamination found';
+        }
         res.json(MedicalExaminationData);
     } catch (error)
     {
