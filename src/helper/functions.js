@@ -1,3 +1,6 @@
+const Doctor = require("../models/Doctor");
+const Patient = require("../models/Patients");
+
 /**
  * Send response success to client.
  * 
@@ -31,5 +34,47 @@ global.error = function(res,code, error, message)
         status: "error",
         data: error,
         message: message,
+        line:__filename,
     });
 }
+
+/**
+ * add patient in doctor table.
+ * 
+ * @param {String} doctor_id 
+ * @param {String} patient_id 
+ */
+const addPatient = async function(doctor_id,patient_id)
+{
+    const doctor = await Doctor.findById(doctor_id);
+    if (!doctor){
+        throw "Not Found";
+    };
+    const patients = doctor.patient;
+    if(!patients.includes(patient_id))
+    {
+        doctor.patient.push(patient_id);
+        doctor.save();
+    }
+};
+
+/**
+ * add doctor in patient table.
+ * 
+ * @param {String} doctor_id 
+ * @param {String} patient_id 
+ */
+const addDoctor = async function(doctor_id,patient_id)
+{
+    const patient = await Patient.findById(patient_id);
+    if (!patient){
+        throw "Not Found";
+    };
+    const doctors = patient.doctors;
+    if(!doctors.includes(doctor_id))
+    {
+        patient.doctors.push(doctor_id);
+        patient.save();
+    }
+};
+module.exports = {addPatient,addDoctor};

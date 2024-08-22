@@ -38,10 +38,6 @@ doctorSchema.pre("save", function (next)
     });
 });
 
-doctorSchema.methods.hasMany = async function ()
-{
-    return await MedicalExamination.find({doctor_id: this._id});
-};
-
+//creat MODEL
 const doctor = mongoose.model('doctors',doctorSchema);
 module.exports = doctor;

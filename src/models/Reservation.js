@@ -4,16 +4,17 @@ const schema = mongoose.Schema;
 
 const ReservationSchema = new schema({
     code: Number,
-    date: Date,
-    time: String,
+    reservationtime: Date,
     status: {
         type: String,
         enum: ['paid','unpaid'],
         default: 'unpaid'
     },
     doctor: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'},
-    pation_id: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'}
+    patient: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
+    createdAt: {type: Date, default: Date.now}
 })
+//ReservationSchema.plugin(AutoIncrementSimple, [{ field: 'code' }]);
 
 const Reservations = mongoose.model('Reservations',ReservationSchema);
 module.exports = Reservations;

@@ -2,11 +2,11 @@ const { body } = require("express-validator");
 const Doctor = require('../models/Doctor')
 const Patient = require('../models/Patients')
 
-const registerRequest = 
+const Request = 
 [
     [
-      body("notes").isString(),
-      body("diagnosis").isString(),
+      body("code").isNumeric(),
+      body("reservationTime").notEmpty(),
       body("status").isString().trim(),
       body("doctor").custom(async (doctor_id)=>{
         const doctor = await Doctor.findOne({ _id: doctor_id });
@@ -24,4 +24,4 @@ const registerRequest =
 ];
 
 
-module.exports = registerRequest;
+module.exports = Request;

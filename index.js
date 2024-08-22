@@ -7,6 +7,7 @@ const auth = require('./src/Router/authRouter');
 const patient = require('./src/Router/patientRouter');
 const doctorRouter = require('./src/Router/doctorRouter');
 const MedicalExaminationRouter = require('./src/Router/medicalExaminationRouter');
+const ReservationRouter = require('./src/Router/reservationRouter');
 
 app = express();
 const port = 3000;
@@ -28,5 +29,6 @@ app.use('/auth',auth);
 app.use('/patients',patient);
 app.use('/doctors',doctorRouter);
 app.use('/examinations',MedicalExaminationRouter);
+app.use('/reservations',ReservationRouter);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

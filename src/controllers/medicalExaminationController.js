@@ -1,6 +1,6 @@
 const MedicalExamination = require('../models/MedicalExamination');
-const Doctor = require('../models/Doctor');
-const Patient = require('../models/Patients');
+const {addPatient,addDoctor} = require('../helper/functions');
+
 
 /**
  * @route GET /MedicalExamination
@@ -57,12 +57,16 @@ async function create (req, res)
         const newMedicalExamination = await new MedicalExamination({
             notes: req.body.notes,
             doctor: req.body.doctor,
-            pation: req.body.pation,
+            patient: req.body.patient,
             diagnosis: req.body.diagnosis,
             status: req.body.status ?? 'active',
         });
         newMedicalExamination.save()
-            .then(() => res.json(newMedicalExamination))
+            .then(async () => {
+                await addPatient(newMedicalExamination.doctor,newMedicalExamination.patient)
+                await addDoctor(newMedicalExamination.doctor,newMedicalExamination.patient)
+                res.json(newMedicalExamination)
+            })
             .catch((err) => {
             res.json({massage:  err.message});  
             });
@@ -89,8 +93,8 @@ async function update (req, res)
         }
         //update MedicalExamination
         updateMedicalExamination.notes       = req.body.notes,
-        updateMedicalExamination.doctor_id   = req.body.doctor_id,
-        updateMedicalExamination.pation_id   = req.body.pation_id,
+        updateMedicalExamination.doctor      = req.body.doctor_id,
+        updateMedicalExamination.patient     = req.body.pation_id,
         updateMedicalExamination.diagnosis   = req.body.diagnosis,
         updateMedicalExamination.status      = req.body.status ?? 'active',
         
