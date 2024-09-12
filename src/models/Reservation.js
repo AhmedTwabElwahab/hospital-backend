@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
+// const autoIncrement = require('mongoose-auto-increment');
 
 
 const ReservationSchema = new schema({
@@ -14,7 +15,8 @@ const ReservationSchema = new schema({
     patient: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
     createdAt: {type: Date, default: Date.now}
 })
-//ReservationSchema.plugin(AutoIncrementSimple, [{ field: 'code' }]);
+// ReservationSchema.plugin(autoIncrement.plugin, [{ field: 'code' }]);
+// var Book = connection.model('Reservation', ReservationSchema);
 
 const Reservations = mongoose.model('Reservations',ReservationSchema);
 module.exports = Reservations;

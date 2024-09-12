@@ -56,7 +56,7 @@ async function create (req, res)
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
-            birthdate: new Date(req.body.birthdate),
+            // birthdate: new Date(req.body.birthdate),
             password:req.body.password
         });
         
@@ -78,24 +78,25 @@ async function create (req, res)
  */
 async function update (req, res)
 {
-    const id = req.params.user;    
-    const { name, phone, email, birthdate } = req.body;
+    const id = req.params.user; 
+    
     try 
     {
+        const {name,phone,email,user_password,patient} = req.body;
         const user = await User.findById(id);
         if (!user){
             throw "Not Found";
-        }else
-        {
-            //update user
-            user.name = name;
-            user.phone = phone;
-            user.email = email;
-            user.birthdate = birthdate;
-            // save user to database
-            await user.save();
-            res.json(user);
         }
+
+        user.name = name || user.name;
+        user.phone = phone || user.phone;
+        user.email = email || user.email;
+        user.password = user_password || user.password;
+        user.patient = patient || user.patient;
+        // save user to database
+        const userUpdate = await user.save();  
+        const { password,...userDoc} = userUpdate._doc;
+        success(res,200,userDoc,"successful update user");
     } catch (error) {
         res.status(500).json({massage: error});
     }
@@ -127,6 +128,27 @@ async function destroy (req, res)
     }
 }
 
+/**
+ * @route checkLogin /users/login
+ * @desc check user is login or not. 
+ * @access Public
+ */
+async function checkLogin (req, res)
+{    
+    try 
+    {
+        const ID = req.user.id;
+        const user = await User.findById(ID);
+        if(!user)
+        {
+            throw 'No users found';
+        }
+        const {password, ...user_data} = user._doc;
+        res.json(user_data);
+    } catch (error)
+    {
+        res.status(500).json({massage: error});
+    }
+}
 
-
-module.exports = {index, show, create, update, destroy};
+module.exports = {index, show, create, update, destroy, checkLogin};

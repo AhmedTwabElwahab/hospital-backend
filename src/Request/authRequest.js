@@ -12,7 +12,8 @@ const registerRequest =
           throw new Error("Email already exists");
         }
       }),
-      body("date").toDate(),
+      body("password").isString().notEmpty(),
+      body("phone").isString().notEmpty(),
     ],
 ];
 

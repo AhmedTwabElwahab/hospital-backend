@@ -11,14 +11,15 @@ const { Validate } = require('../middleware/validate');
 router.get('/',auth,index);
 
 /**
+ * create Patient
+ */
+router.post('/create', patientRequest, auth, Validate, create);
+
+/**
  * get info for Patient
  */
 router.get('/:Patient',auth, show);
 
-/**
- * create Patient
- */
-router.post('/create', patientRequest, auth, Validate, create);
 
 /**
  * update Patient

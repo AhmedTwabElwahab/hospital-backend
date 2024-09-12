@@ -19,6 +19,7 @@ const doctorSchema = new schema({
     phone: String,
     password: String,
     whatsapp: String,
+    specialty: String,
     patient : [{ type: mongoose.Schema.Types.ObjectId, ref: 'patients' }]
 });
 

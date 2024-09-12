@@ -12,8 +12,8 @@ const Patient = require("../models/Patients");
  * @param {String} token Access token.
  */
 global.success = function (res,code, data, message,token)
-{
-    res.status(code).json({
+{   
+    return res.status(code).json({
         status: "success",
         data: data,
         token: token ?? null,
@@ -37,6 +37,16 @@ global.error = function(res,code, error, message)
         message: message,
         line:__filename,
     });
+}
+
+/**
+ * console log func.
+ * 
+ * @param {string} msg.
+ */
+global.dd = function(msg)
+{
+    console.log(msg);
 }
 
 /**

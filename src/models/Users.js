@@ -10,7 +10,7 @@ const userSchema = new schema({
     email: String,
     password: String,
     phone: String,
-    birthdate: Date
+    patient: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
 })
 
 userSchema.pre("save", function (next)
@@ -38,7 +38,7 @@ userSchema.methods.generateAccessJWT = function () {
         id: this._id,
     };
     return JWT.sign(payload, SECRET_ACCESS_TOKEN, {
-        expiresIn: '20m',
+        expiresIn: '1h',
     });
 };
 

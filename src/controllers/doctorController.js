@@ -15,7 +15,7 @@ async function index (req, res)
         {
             throw 'No Doctors found';
         }
-        res.json(Doctors);
+        success(res,200,Doctors,"get all doctoors")
     } catch (err)
     {
         global.error(res,500,err,"internal error");
@@ -34,7 +34,8 @@ async function show (req, res)
     try 
     {
         const DoctorData = await Doctor.findById(DoctorId);
-        if (!DoctorData){
+        if (!DoctorData)
+        {
             throw "Not Found";
         }
         res.json(DoctorData);
@@ -67,7 +68,8 @@ async function create (req, res)
             address: req.body.address,
             phone: req.body.phone,
             whatsapp: req.body.whatsapp,
-            password:req.body.password
+            password:req.body.password,
+            specialty:req.body.specialty
         });
         newDoctor.save()
             .then(() => res.json(newDoctor))
@@ -96,20 +98,21 @@ async function update (req, res)
             throw "Not Found";
         }
         //update Doctor
-        updateDoctor.name         = req.body.name,
-        updateDoctor.nickname     = req.body.nickname,
-        updateDoctor.number_id    = req.body.number_id,
-        updateDoctor.email        = req.body.email,
-        updateDoctor.governorate  = req.body.governorate,
-        updateDoctor.city         = req.body.city,
-        updateDoctor.street       = req.body.street,
-        updateDoctor.building     = req.body.building,
-        updateDoctor.floor        = req.body.floor,
-        updateDoctor.apartment    = req.body.apartment,
-        updateDoctor.address      = req.body.address,
-        updateDoctor.phone        = req.body.phone,
-        updateDoctor.whatsapp     = req.body.whatsapp,
-        updateDoctor.password     = req.body.password;
+        updateDoctor.name         = req.body.name || updateDoctor.name;
+        updateDoctor.nickname     = req.body.nickname || updateDoctor.nickname;
+        updateDoctor.number_id    = req.body.number_id|| updateDoctor.number_id;
+        updateDoctor.email        = req.body.email|| updateDoctor.email;
+        updateDoctor.governorate  = req.body.governorate|| updateDoctor.governorate;
+        updateDoctor.city         = req.body.city|| updateDoctor.city;
+        updateDoctor.street       = req.body.street|| updateDoctor.street;
+        updateDoctor.building     = req.body.building|| updateDoctor.building;
+        updateDoctor.floor        = req.body.floor|| updateDoctor.floor;
+        updateDoctor.apartment    = req.body.apartment|| updateDoctor.apartment;
+        updateDoctor.address      = req.body.address|| updateDoctor.address;
+        updateDoctor.phone        = req.body.phone|| updateDoctor.phone;
+        updateDoctor.whatsapp     = req.body.whatsapp|| updateDoctor.whatsapp;
+        updateDoctor.password     = req.body.password|| updateDoctor.password;
+        updateDoctor.specialty    = req.body.specialty || updateDoctor.specialty;
 
         // save Doctor to database
         await updateDoctor.save();
