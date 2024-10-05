@@ -1,5 +1,5 @@
 const Doctor = require('../models/Doctor');
-
+const {init_appointment} = require('../controllers/appointmentController');
 
 /**
  * @route GET /Doctors
@@ -30,10 +30,12 @@ async function index (req, res)
 
 async function show (req, res)
 {
-    const DoctorId = req.params.doctor;
     try 
     {
-        const DoctorData = await Doctor.findById(DoctorId);
+        const DoctorId = req.params.doctor;
+
+        const DoctorData = await Doctor.findById(DoctorId).populate(['patient','appointment']);
+    
         if (!DoctorData)
         {
             throw "Not Found";
@@ -69,10 +71,17 @@ async function create (req, res)
             phone: req.body.phone,
             whatsapp: req.body.whatsapp,
             password:req.body.password,
-            specialty:req.body.specialty
+            specialty:req.body.specialty,
+            duration_medical:req.body.duration_medical,
+            appointment:req.body.appointment?? []
         });
+
+        //update appointemnt
         newDoctor.save()
-            .then(() => res.json(newDoctor))
+            .then(async (newDoctor) =>{
+               await init_appointment(newDoctor._id);
+               success(res,200,newDoctor,"successfull create Doctor");
+            })
             .catch((err) => {
               res.json({massage:  err.message});  
             });
@@ -113,6 +122,8 @@ async function update (req, res)
         updateDoctor.whatsapp     = req.body.whatsapp|| updateDoctor.whatsapp;
         updateDoctor.password     = req.body.password|| updateDoctor.password;
         updateDoctor.specialty    = req.body.specialty || updateDoctor.specialty;
+        updateDoctor.duration_medical    = req.body.duration_medical || updateDoctor.duration_medical;
+        updateDoctor.appointment    = req.body.appointment || updateDoctor.appointment;
 
         // save Doctor to database
         await updateDoctor.save();

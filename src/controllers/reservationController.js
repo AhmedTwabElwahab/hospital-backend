@@ -55,7 +55,8 @@ async function create (req, res)
     {
         const newReservation = await new Reservation({
             code: req.body.code,
-            reservationTime: new Date(req.body.reservationTime),
+            time: req.body.time,
+            reservationDate: new Date(req.body.reservationDate),
             status: req.body.status ?? 'unpaid',
             doctor: req.body.doctor,
             patient: req.body.patient
@@ -91,7 +92,8 @@ async function update (req, res)
         }
         //update Reservation
          updateReservation.code =  req.body.code,
-         updateReservation.reservationTime =  new Date(req.body.reservationTime),
+         updateReservation.time =  req.body.time,
+         updateReservation.reservationDate =  new Date(req.body.reservationDate),
          updateReservation.status =  req.body.status ?? 'unpaid',
          updateReservation.doctor =  req.body.doctor,
          updateReservation.patient =  req.body.patient

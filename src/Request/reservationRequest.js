@@ -6,8 +6,8 @@ const Request =
 [
     [
       body("code").isNumeric(),
-      body("reservationTime").notEmpty(),
-      body("status").isString().trim(),
+      body("reservationDate").notEmpty(),
+      body("time").isString().notEmpty(),
       body("doctor").custom(async (doctor_id)=>{
         const doctor = await Doctor.findOne({ _id: doctor_id });
         if (!doctor) {

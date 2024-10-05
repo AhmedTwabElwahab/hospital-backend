@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 const MedicalExamination = require('./MedicalExamination');
-
+const appointment = require('./Appointment');
+const patients = require('./Patients')
 
 const doctorSchema = new schema({
     name: String,
@@ -20,7 +21,9 @@ const doctorSchema = new schema({
     password: String,
     whatsapp: String,
     specialty: String,
-    patient : [{ type: mongoose.Schema.Types.ObjectId, ref: 'patients' }]
+    duration_medical:String, // مدة الكشف
+    appointment : [{ type: mongoose.Schema.Types.ObjectId, ref: appointment.modelName }],
+    patient : [{ type: mongoose.Schema.Types.ObjectId, ref: patients.modelName }]
 });
 
 doctorSchema.pre("save", function (next)

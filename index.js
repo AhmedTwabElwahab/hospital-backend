@@ -11,6 +11,7 @@ const ReservationRouter = require('./src/Router/reservationRouter');
 const medicineRequest = require('./src/Router/medicineRouter');
 const productRequest = require('./src/Router/productRouter');
 const reviewRequest = require('./src/Router/reviewRouter');
+const appointmentRouter = require('./src/Router/appointmentRouter');
 
 app = express();
 const port = 3000;
@@ -36,5 +37,6 @@ app.use('/reservations',ReservationRouter);
 app.use('/medicines',medicineRequest);
 app.use('/products',productRequest);
 app.use('/reviews',reviewRequest);
+app.use('/appointments',appointmentRouter);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));

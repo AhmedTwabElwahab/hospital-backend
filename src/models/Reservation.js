@@ -1,17 +1,19 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 // const autoIncrement = require('mongoose-auto-increment');
+const Doctor = require('./Doctor');
 
 
 const ReservationSchema = new schema({
     code: Number,
-    reservationtime: Date,
+    reservationDate: Date,
+    time: String,
     status: {
         type: String,
         enum: ['paid','unpaid'],
         default: 'unpaid'
     },
-    doctor: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'},
+    doctor: {type: mongoose.Schema.Types.ObjectId, ref: Doctor.modelName},
     patient: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
     createdAt: {type: Date, default: Date.now}
 })
