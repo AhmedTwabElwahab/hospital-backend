@@ -4,11 +4,14 @@ const bcrypt = require("bcrypt");
 const MedicalExamination = require('./MedicalExamination');
 const appointment = require('./Appointment');
 const patients = require('./Patients')
+const Review = require('./Review')
 
 const doctorSchema = new schema({
     name: String,
     nickname: String,
+    image:String,
     number_id: String,
+    rate:Number,
     email: String,
     governorate: String,
     city: String,
@@ -23,7 +26,8 @@ const doctorSchema = new schema({
     specialty: String,
     duration_medical:String, // مدة الكشف
     appointment : [{ type: mongoose.Schema.Types.ObjectId, ref: appointment.modelName }],
-    patient : [{ type: mongoose.Schema.Types.ObjectId, ref: patients.modelName }]
+    patient : [{ type: mongoose.Schema.Types.ObjectId, ref: patients.modelName }],
+    reviews : [{ type: mongoose.Schema.Types.ObjectId, ref: Review.modelName }]
 });
 
 doctorSchema.pre("save", function (next)

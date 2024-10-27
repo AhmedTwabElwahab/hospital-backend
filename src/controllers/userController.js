@@ -56,7 +56,6 @@ async function create (req, res)
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
-            // birthdate: new Date(req.body.birthdate),
             password:req.body.password
         });
         
@@ -93,6 +92,7 @@ async function update (req, res)
         user.email = email || user.email;
         user.password = user_password || user.password;
         user.patient = patient || user.patient;
+        user.doctor = doctor || user.doctor;
         // save user to database
         const userUpdate = await user.save();  
         const { password,...userDoc} = userUpdate._doc;

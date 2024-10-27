@@ -11,6 +11,7 @@ const userSchema = new schema({
     password: String,
     phone: String,
     patient: {type: mongoose.Schema.Types.ObjectId, ref: 'patients'},
+    doctor: {type: mongoose.Schema.Types.ObjectId, ref: 'doctors'},
 })
 
 userSchema.pre("save", function (next)

@@ -10,12 +10,26 @@ async function index (req, res)
 {
     try 
     {
-        let reservation = await Reservation.find({});
+        let query = {};
+        if(req.query)
+        {
+            if(req.query.patient)
+            {
+                query.patient = req.query.patient;
+            }
+            if(req.query.doctor)
+            {
+                query.doctor = req.query.doctor;
+            }          
+        }
+        
+        let reservation = await Reservation.find(query).populate(['doctor']);
         if(!reservation)
         {
             throw 'No Reservation found';
         }
         res.json(reservation);
+        
     } catch (err)
     {
         global.error(res,500,err,"internal error");

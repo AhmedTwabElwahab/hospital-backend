@@ -34,7 +34,7 @@ async function show (req, res)
     {
         const DoctorId = req.params.doctor;
 
-        const DoctorData = await Doctor.findById(DoctorId).populate(['patient','appointment']);
+        const DoctorData = await Doctor.findById(DoctorId).populate(['reviews','patient','appointment']);
     
         if (!DoctorData)
         {
@@ -59,6 +59,8 @@ async function create (req, res)
         const newDoctor = await new Doctor({
             name: req.body.name,
             nickname: req.body.nickname,
+            image: req.body.image ?? '',
+            rate: 0,
             number_id: req.body.number_id,
             email: req.body.email,
             governorate: req.body.governorate,
@@ -73,7 +75,8 @@ async function create (req, res)
             password:req.body.password,
             specialty:req.body.specialty,
             duration_medical:req.body.duration_medical,
-            appointment:req.body.appointment?? []
+            appointment:req.body.appointment?? [],
+            reviews:req.body.reviews?? []
         });
 
         //update appointemnt
@@ -109,6 +112,7 @@ async function update (req, res)
         //update Doctor
         updateDoctor.name         = req.body.name || updateDoctor.name;
         updateDoctor.nickname     = req.body.nickname || updateDoctor.nickname;
+        updateDoctor.image        = req.body.image || updateDoctor.image;
         updateDoctor.number_id    = req.body.number_id|| updateDoctor.number_id;
         updateDoctor.email        = req.body.email|| updateDoctor.email;
         updateDoctor.governorate  = req.body.governorate|| updateDoctor.governorate;
@@ -123,7 +127,9 @@ async function update (req, res)
         updateDoctor.password     = req.body.password|| updateDoctor.password;
         updateDoctor.specialty    = req.body.specialty || updateDoctor.specialty;
         updateDoctor.duration_medical    = req.body.duration_medical || updateDoctor.duration_medical;
-        updateDoctor.appointment    = req.body.appointment || updateDoctor.appointment;
+        updateDoctor.appointment  = req.body.appointment || updateDoctor.appointment;
+        updateDoctor.reviews      = req.body.reviews || updateDoctor.reviews;
+        updateDoctor.rate      = req.body.rate || updateDoctor.rate;
 
         // save Doctor to database
         await updateDoctor.save();

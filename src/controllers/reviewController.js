@@ -1,4 +1,5 @@
 const Review = require('../models/Review');
+const DoctorModel = require('../models/Doctor');
 
 /**
  * @route GET /review
@@ -9,7 +10,20 @@ async function index (req, res)
 {
     try 
     {
-        let review = await Review.find({});
+        let query = {};
+        if(req.query)
+        {
+            if(req.query.patient)
+            {
+                query.patient = req.query.patient;
+            }
+            if(req.query.doctor)
+            {
+                query.doctor = req.query.doctor;
+            }          
+        }
+        
+        let review = await Review.find(query).populate(['doctor','patient']);
         if(!review)
         {
             throw 'No review found';
@@ -54,10 +68,10 @@ async function create (req, res)
     try 
     {
         const review  = await Review.find({patient:req.body.patient,doctor: req.body.doctor});
-        if (review.length > 0) {
+        if (review.length > 0)
+        {
             throw "Review already exists";
         }
-
         const newreview = await new Review({
             disc    :req.body.disc,
             rating  :req.body.rating,
@@ -66,10 +80,36 @@ async function create (req, res)
         });
         newreview.save()
             .then(async () => {
+                let sum = 0;
+                let avg = 0;
+                const reviewsCount = await Review.find({doctor: req.body.doctor});
+                let count = reviewsCount.length + 1;
+    
+                const reviews = await Review.aggregate( [
+                    {
+                        $addFields: {
+                            objectIdAsString: { $toString: "$doctor" }
+                        }
+                    },
+                    {
+                        $match: { objectIdAsString: req.body.doctor }
+                    },
+                    {
+                       $group: { _id: "$doctor", total: { $sum: "$rating" } }
+                    }
+                ]);
+                
+                sum += Number(req.body.rating) + Number(reviews[0]?.total);
+                avg = sum / count;
+                
+                const Doctor_data = await DoctorModel.findById(req.body.doctor);
+                await Doctor_data.reviews.push(newreview._id);
+                Doctor_data.rate = avg.toFixed(1);
+                await Doctor_data.save();
                 res.json(newreview)
             })
             .catch((err) => {
-            res.json({massage:  err.message});  
+                res.json({massage:  err.message});  
             });
     } catch (error)
     {
