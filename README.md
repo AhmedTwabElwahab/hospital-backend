@@ -42,7 +42,7 @@ Installation
 To set up this project on your local machine, follow these steps:
 1. **Clone the repository**: ```git clone https://github.com/AhmedTwabElwahab/hospital-backend.git```
 3. **Navigate to the project directory:** ``` cd hospital-backend```
-4. **Install dependencies:**: ```bash npm install```
+4. **Install dependencies:** ``` npm install```
 5. **Create** a .env file: Create a .env file in the root directory and add your MongoDB URI and any other environment variables required.
    ``` cp .env.example .env```
 7. **Run Project:** ```node index.js```
