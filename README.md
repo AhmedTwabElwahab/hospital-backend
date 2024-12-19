@@ -44,13 +44,13 @@ To set up this project on your local machine, follow these steps:
 3. **Navigate to the project directory:**: ```bash cd hospital-backend```
 4. **Install dependencies:**: ```bash npm install```
 5. **Create** a .env file: Create a .env file in the root directory and add your MongoDB URI and any other environment variables required.
-   ```bash cp .env.example .env```
-7. **Run Project:** ```bash node index.js```
+   ``` cp .env.example .env```
+7. **Run Project:** ```node index.js```
 
 Usage
 -----
 
-After completing the installation steps, you can start the server and access the API endpoints at http://localhost:3000. Use tools like Postman or Swagger UI to test and interact with the API endpoints.
+After completing the installation steps, you can start the server and access the API endpoints. Use tools like Postman or Swagger UI to test and interact with the API endpoints.
 
 API Endpoints
 -------------
