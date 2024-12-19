@@ -5,10 +5,8 @@ const schema = mongoose.Schema;
 const patientSchema = new schema({
     name: String,
     number_id: String,
-    //email: String,
     address: String,
     phone: String,
-    //password: String,
     whatsapp: String,
     weight:Number,
     height: Number,

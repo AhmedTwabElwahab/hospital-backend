@@ -55,10 +55,7 @@ async function create (req, res)
         const newPatient = await new Patient({
             name: req.body.name,
             number_id: req.body.number_id,
-            //email: req.body.email,
             address: req.body.address,
-            // phone: req.body.phone,
-            // password: req.body.password,
             whatsapp: req.body.whatsapp,
             weight:req.body.weight,
             height: req.body.height,
@@ -66,12 +63,13 @@ async function create (req, res)
             allergies: req.body.allergies, //الحساسية
             birthdate: new Date(req.body.birthdate),
         });
-        
+
         newPatient.save()
-            .then(() => res.json(newPatient))
+            .then(() =>
+                success(res,200,newPatient,'successful create patient'))
             .catch((err) => {
-              res.json({massage:  err.message});  
-            });
+                res.json({massage:  err.message});
+        });
     } catch (error)
     {
         global.error(res,500,error,"internal error");

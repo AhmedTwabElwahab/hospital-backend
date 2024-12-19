@@ -78,10 +78,10 @@ async function create (req, res)
 async function update (req, res)
 {
     const id = req.params.user; 
-    
+
     try 
     {
-        const {name,phone,email,user_password,patient} = req.body;
+        const {name,phone,email,user_password,patient,doctor} = req.body;
         const user = await User.findById(id);
         if (!user){
             throw "Not Found";
@@ -94,7 +94,7 @@ async function update (req, res)
         user.patient = patient || user.patient;
         user.doctor = doctor || user.doctor;
         // save user to database
-        const userUpdate = await user.save();  
+        const userUpdate = await user.save();
         const { password,...userDoc} = userUpdate._doc;
         success(res,200,userDoc,"successful update user");
     } catch (error) {
